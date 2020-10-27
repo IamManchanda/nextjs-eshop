@@ -1,6 +1,6 @@
 {
   "title": "Next.js eShop",
-  "titleTemplate": "%s - Next.js eShop",
+  "titleTemplate": "%s - Commerce App",
   "description": "Next.js eShop",
   "openGraph": {
     "type": "website",
