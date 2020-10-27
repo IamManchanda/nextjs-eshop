@@ -1,44 +1,44 @@
-import type { GetStaticPropsContext } from 'next'
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-import { Layout } from '@components/core'
-import { Button } from '@components/ui'
-import { Bag, Cross, Check } from '@components/icons'
-import { CartItem } from '@components/cart'
-import { Text } from '@components/ui'
+import type { GetStaticPropsContext } from "next";
+import { getConfig } from "@bigcommerce/storefront-data-hooks/api";
+import getAllPages from "@bigcommerce/storefront-data-hooks/api/operations/get-all-pages";
+import useCart from "@bigcommerce/storefront-data-hooks/cart/use-cart";
+import usePrice from "@bigcommerce/storefront-data-hooks/use-price";
+import { Layout } from "@components/core";
+import { Button } from "@components/ui";
+import { Bag, Cross, Check } from "@components/icons";
+import { CartItem } from "@components/cart";
+import { Text } from "@components/ui";
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
+  const config = getConfig({ locale });
+  const { pages } = await getAllPages({ config, preview });
   return {
     props: { pages },
-  }
+  };
 }
 
 export default function Cart() {
-  const { data, isEmpty } = useCart()
+  const { data, isEmpty } = useCart();
   const { price: subTotal } = usePrice(
     data && {
       amount: data.base_amount,
       currencyCode: data.currency.code,
-    }
-  )
+    },
+  );
   const { price: total } = usePrice(
     data && {
       amount: data.cart_amount,
       currencyCode: data.currency.code,
-    }
-  )
+    },
+  );
 
-  const items = data?.line_items.physical_items ?? []
+  const items = data?.line_items.physical_items ?? [];
 
-  const error = null
-  const success = null
+  const error = null;
+  const success = null;
 
   return (
     <div className="grid lg:grid-cols-12">
@@ -139,7 +139,7 @@ export default function Cart() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-Cart.Layout = Layout
+Cart.Layout = Layout;

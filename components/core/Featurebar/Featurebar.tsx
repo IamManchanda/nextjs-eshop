@@ -1,14 +1,14 @@
-import cn from 'classnames'
-import { FC } from 'react'
+import cn from "classnames";
+import { FC } from "react";
 
-import s from './Featurebar.module.css'
+import s from "./Featurebar.module.css";
 
 interface Props {
-  className?: string
-  title: string
-  description?: string
-  hide?: boolean
-  action?: React.ReactNode
+  className?: string;
+  title: string;
+  description?: string;
+  hide?: boolean;
+  action?: React.ReactNode;
 }
 
 const Featurebar: FC<Props> = ({
@@ -21,10 +21,10 @@ const Featurebar: FC<Props> = ({
   const rootClassName = cn(
     s.root,
     {
-      'transition-transform transform duration-500 ease-out translate-y-full': hide,
+      "transition-transform transform duration-500 ease-out translate-y-full": hide,
     },
-    className
-  )
+    className,
+  );
   return (
     <div className={rootClassName}>
       <span className="block md:inline">{title}</span>
@@ -33,7 +33,7 @@ const Featurebar: FC<Props> = ({
       </span>
       {action && action}
     </div>
-  )
-}
+  );
+};
 
-export default Featurebar
+export default Featurebar;

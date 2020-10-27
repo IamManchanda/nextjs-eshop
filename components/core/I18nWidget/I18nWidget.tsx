@@ -1,46 +1,46 @@
-import { FC } from 'react'
-import cn from 'classnames'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { Menu } from '@headlessui/react'
-import { DoubleChevron } from '@components/icons'
-import s from './I18nWidget.module.css'
+import { FC } from "react";
+import cn from "classnames";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { Menu } from "@headlessui/react";
+import { DoubleChevron } from "@components/icons";
+import s from "./I18nWidget.module.css";
 
 interface LOCALE_DATA {
-  name: string
+  name: string;
   img: {
-    filename: string
-    alt: string
-  }
+    filename: string;
+    alt: string;
+  };
 }
 
 const LOCALES_MAP: Record<string, LOCALE_DATA> = {
   es: {
-    name: 'Español',
+    name: "Español",
     img: {
-      filename: 'flag-es-co.svg',
-      alt: 'Bandera Colombiana',
+      filename: "flag-es-co.svg",
+      alt: "Bandera Colombiana",
     },
   },
-  'en-US': {
-    name: 'English',
+  "en-US": {
+    name: "English",
     img: {
-      filename: 'flag-en-us.svg',
-      alt: 'US Flag',
+      filename: "flag-en-us.svg",
+      alt: "US Flag",
     },
   },
-}
+};
 
 const I18nWidget: FC = () => {
   const {
     locale,
     locales,
-    defaultLocale = 'en-US',
+    defaultLocale = "en-US",
     asPath: currentPath,
-  } = useRouter()
-  const options = locales?.filter((val) => val !== locale)
+  } = useRouter();
+  const options = locales?.filter((val) => val !== locale);
 
-  const currentLocale = locale || defaultLocale
+  const currentLocale = locale || defaultLocale;
 
   return (
     <nav className={s.root}>
@@ -76,7 +76,7 @@ const I18nWidget: FC = () => {
         ) : null}
       </Menu>
     </nav>
-  )
-}
+  );
+};
 
-export default I18nWidget
+export default I18nWidget;

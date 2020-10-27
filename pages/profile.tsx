@@ -1,23 +1,23 @@
-import type { GetStaticPropsContext } from 'next'
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import useCustomer from '@bigcommerce/storefront-data-hooks/use-customer'
-import { Layout } from '@components/core'
-import { Container, Text } from '@components/ui'
+import type { GetStaticPropsContext } from "next";
+import { getConfig } from "@bigcommerce/storefront-data-hooks/api";
+import getAllPages from "@bigcommerce/storefront-data-hooks/api/operations/get-all-pages";
+import useCustomer from "@bigcommerce/storefront-data-hooks/use-customer";
+import { Layout } from "@components/core";
+import { Container, Text } from "@components/ui";
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
+  const config = getConfig({ locale });
+  const { pages } = await getAllPages({ config, preview });
   return {
     props: { pages },
-  }
+  };
 }
 
 export default function Profile() {
-  const { data } = useCustomer()
+  const { data } = useCustomer();
   return (
     <Container>
       <Text variant="pageHeading">My Profile</Text>
@@ -38,7 +38,7 @@ export default function Profile() {
         </div>
       )}
     </Container>
-  )
+  );
 }
 
-Profile.Layout = Layout
+Profile.Layout = Layout;

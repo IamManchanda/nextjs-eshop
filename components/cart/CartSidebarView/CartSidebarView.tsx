@@ -1,35 +1,35 @@
-import { FC } from 'react'
-import cn from 'classnames'
-import { UserNav } from '@components/core'
-import { Button } from '@components/ui'
-import { Bag, Cross, Check } from '@components/icons'
-import { useUI } from '@components/ui/context'
-import useCart from '@bigcommerce/storefront-data-hooks/cart/use-cart'
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-import CartItem from '../CartItem'
-import s from './CartSidebarView.module.css'
+import { FC } from "react";
+import cn from "classnames";
+import { UserNav } from "@components/core";
+import { Button } from "@components/ui";
+import { Bag, Cross, Check } from "@components/icons";
+import { useUI } from "@components/ui/context";
+import useCart from "@bigcommerce/storefront-data-hooks/cart/use-cart";
+import usePrice from "@bigcommerce/storefront-data-hooks/use-price";
+import CartItem from "../CartItem";
+import s from "./CartSidebarView.module.css";
 
 const CartSidebarView: FC = () => {
-  const { data, isEmpty } = useCart()
+  const { data, isEmpty } = useCart();
   const { price: subTotal } = usePrice(
     data && {
       amount: data.base_amount,
       currencyCode: data.currency.code,
-    }
-  )
+    },
+  );
   const { price: total } = usePrice(
     data && {
       amount: data.cart_amount,
       currencyCode: data.currency.code,
-    }
-  )
-  const { closeSidebar } = useUI()
-  const handleClose = () => closeSidebar()
+    },
+  );
+  const { closeSidebar } = useUI();
+  const handleClose = () => closeSidebar();
 
-  const items = data?.line_items.physical_items ?? []
+  const items = data?.line_items.physical_items ?? [];
 
-  const error = null
-  const success = null
+  const error = null;
+  const success = null;
 
   return (
     <div
@@ -132,7 +132,7 @@ const CartSidebarView: FC = () => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CartSidebarView
+export default CartSidebarView;

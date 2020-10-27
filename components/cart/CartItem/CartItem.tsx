@@ -1,77 +1,77 @@
-import { ChangeEvent, useEffect, useState } from 'react'
-import cn from 'classnames'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Trash, Plus, Minus } from '@components/icons'
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-import useUpdateItem from '@bigcommerce/storefront-data-hooks/cart/use-update-item'
-import useRemoveItem from '@bigcommerce/storefront-data-hooks/cart/use-remove-item'
-import s from './CartItem.module.css'
+import { ChangeEvent, useEffect, useState } from "react";
+import cn from "classnames";
+import Image from "next/image";
+import Link from "next/link";
+import { Trash, Plus, Minus } from "@components/icons";
+import usePrice from "@bigcommerce/storefront-data-hooks/use-price";
+import useUpdateItem from "@bigcommerce/storefront-data-hooks/cart/use-update-item";
+import useRemoveItem from "@bigcommerce/storefront-data-hooks/cart/use-remove-item";
+import s from "./CartItem.module.css";
 
 const CartItem = ({
   item,
   currencyCode,
 }: {
-  item: any
-  currencyCode: string
+  item: any;
+  currencyCode: string;
 }) => {
   const { price } = usePrice({
     amount: item.extended_sale_price,
     baseAmount: item.extended_list_price,
     currencyCode,
-  })
-  const updateItem = useUpdateItem(item)
-  const removeItem = useRemoveItem()
-  const [quantity, setQuantity] = useState(item.quantity)
-  const [removing, setRemoving] = useState(false)
+  });
+  const updateItem = useUpdateItem(item);
+  const removeItem = useRemoveItem();
+  const [quantity, setQuantity] = useState(item.quantity);
+  const [removing, setRemoving] = useState(false);
   const updateQuantity = async (val: number) => {
-    await updateItem({ quantity: val })
-  }
+    await updateItem({ quantity: val });
+  };
   const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value)
+    const val = Number(e.target.value);
 
     if (Number.isInteger(val) && val >= 0) {
-      setQuantity(e.target.value)
+      setQuantity(e.target.value);
     }
-  }
+  };
   const handleBlur = () => {
-    const val = Number(quantity)
+    const val = Number(quantity);
 
     if (val !== item.quantity) {
-      updateQuantity(val)
+      updateQuantity(val);
     }
-  }
+  };
   const increaseQuantity = (n = 1) => {
-    const val = Number(quantity) + n
+    const val = Number(quantity) + n;
 
     if (Number.isInteger(val) && val >= 0) {
-      setQuantity(val)
-      updateQuantity(val)
+      setQuantity(val);
+      updateQuantity(val);
     }
-  }
+  };
   const handleRemove = async () => {
-    setRemoving(true)
+    setRemoving(true);
 
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem({ id: item.id })
+      await removeItem({ id: item.id });
     } catch (error) {
-      setRemoving(false)
+      setRemoving(false);
     }
-  }
+  };
 
   useEffect(() => {
     // Reset the quantity state if the item quantity changes
     if (item.quantity !== Number(quantity)) {
-      setQuantity(item.quantity)
+      setQuantity(item.quantity);
     }
-  }, [item.quantity])
+  }, [item.quantity]);
 
   return (
     <li
-      className={cn('flex flex-row space-x-8 py-8', {
-        'opacity-75 pointer-events-none': removing,
+      className={cn("flex flex-row space-x-8 py-8", {
+        "opacity-75 pointer-events-none": removing,
       })}
     >
       <div className="w-16 h-16 bg-violet relative overflow-hidden">
@@ -87,7 +87,7 @@ const CartItem = ({
       </div>
       <div className="flex-1 flex flex-col text-base">
         {/** TODO: Replace this. No `path` found at Cart */}
-        <Link href={`/product/${item.url.split('/')[3]}`}>
+        <Link href={`/product/${item.url.split("/")[3]}`}>
           <span className="font-bold mb-5 text-lg cursor-pointer">
             {item.name}
           </span>
@@ -118,7 +118,7 @@ const CartItem = ({
         </button>
       </div>
     </li>
-  )
-}
+  );
+};
 
-export default CartItem
+export default CartItem;

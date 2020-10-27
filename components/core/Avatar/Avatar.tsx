@@ -1,14 +1,14 @@
-import cn from 'classnames'
-import { FC, useState } from 'react'
-import { getRandomPairOfColors } from '@lib/colors'
+import cn from "classnames";
+import { FC, useState } from "react";
+import { getRandomPairOfColors } from "@lib/colors";
 
 interface Props {
-  className?: string
-  children?: any
+  className?: string;
+  children?: any;
 }
 
 const Avatar: FC<Props> = ({}) => {
-  const [bg] = useState(getRandomPairOfColors)
+  const [bg] = useState(getRandomPairOfColors);
 
   return (
     <div
@@ -19,7 +19,7 @@ const Avatar: FC<Props> = ({}) => {
     >
       {/* Add an image - We're generating a gradient as placeholder  <img></img> */}
     </div>
-  )
-}
+  );
+};
 
-export default Avatar
+export default Avatar;

@@ -1,14 +1,14 @@
-import { FC } from 'react'
-import Link from 'next/link'
-import { getCategoryPath, getDesignerPath } from '@lib/search'
-import { Grid } from '@components/ui'
-import { ProductCard } from '@components/product'
-import s from './HomeAllProductsGrid.module.css'
+import { FC } from "react";
+import Link from "next/link";
+import { getCategoryPath, getDesignerPath } from "@lib/search";
+import { Grid } from "@components/ui";
+import { ProductCard } from "@components/product";
+import s from "./HomeAllProductsGrid.module.css";
 
 interface Props {
-  categories?: any
-  brands?: any
-  newestProducts?: any
+  categories?: any;
+  brands?: any;
+  newestProducts?: any;
 }
 
 const Head: FC<Props> = ({ categories, brands, newestProducts }) => {
@@ -18,7 +18,7 @@ const Head: FC<Props> = ({ categories, brands, newestProducts }) => {
         <div className={s.aside}>
           <ul className="mb-10">
             <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={getCategoryPath('')}>
+              <Link href={getCategoryPath("")}>
                 <a>All Categories</a>
               </Link>
             </li>
@@ -32,7 +32,7 @@ const Head: FC<Props> = ({ categories, brands, newestProducts }) => {
           </ul>
           <ul className="">
             <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={getDesignerPath('')}>
+              <Link href={getDesignerPath("")}>
                 <a>All Designers</a>
               </Link>
             </li>
@@ -60,7 +60,7 @@ const Head: FC<Props> = ({ categories, brands, newestProducts }) => {
         </Grid>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Head
+export default Head;

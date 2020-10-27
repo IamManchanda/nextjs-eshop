@@ -1,18 +1,18 @@
-import type { GetStaticPropsContext } from 'next'
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import { Layout } from '@components/core'
-import { Container } from '@components/ui'
+import type { GetStaticPropsContext } from "next";
+import { getConfig } from "@bigcommerce/storefront-data-hooks/api";
+import getAllPages from "@bigcommerce/storefront-data-hooks/api/operations/get-all-pages";
+import { Layout } from "@components/core";
+import { Container } from "@components/ui";
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
+  const config = getConfig({ locale });
+  const { pages } = await getAllPages({ config, preview });
   return {
     props: { pages },
-  }
+  };
 }
 
 export default function Blog() {
@@ -91,7 +91,7 @@ export default function Blog() {
         </div>
       </Container>
     </div>
-  )
+  );
 }
 
-Blog.Layout = Layout
+Blog.Layout = Layout;

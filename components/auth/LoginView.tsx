@@ -1,59 +1,59 @@
-import { FC, useEffect, useState, useCallback } from 'react'
-import { Logo, Button, Input } from '@components/ui'
-import useLogin from '@bigcommerce/storefront-data-hooks/use-login'
-import { useUI } from '@components/ui/context'
-import { validate } from 'email-validator'
+import { FC, useEffect, useState, useCallback } from "react";
+import { Logo, Button, Input } from "@components/ui";
+import useLogin from "@bigcommerce/storefront-data-hooks/use-login";
+import { useUI } from "@components/ui/context";
+import { validate } from "email-validator";
 
 interface Props {}
 
 const LoginView: FC<Props> = () => {
   // Form State
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState('')
-  const [dirty, setDirty] = useState(false)
-  const [disabled, setDisabled] = useState(false)
-  const { setModalView, closeModal } = useUI()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [dirty, setDirty] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const { setModalView, closeModal } = useUI();
 
-  const login = useLogin()
+  const login = useLogin();
 
   const handleLogin = async (e: React.SyntheticEvent<EventTarget>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!dirty && !disabled) {
-      setDirty(true)
-      handleValidation()
+      setDirty(true);
+      handleValidation();
     }
 
     try {
-      setLoading(true)
-      setMessage('')
+      setLoading(true);
+      setMessage("");
       await login({
         email,
         password,
-      })
-      setLoading(false)
-      closeModal()
+      });
+      setLoading(false);
+      closeModal();
     } catch ({ errors }) {
-      setMessage(errors[0].message)
-      setLoading(false)
+      setMessage(errors[0].message);
+      setLoading(false);
     }
-  }
+  };
 
   const handleValidation = useCallback(() => {
     // Test for Alphanumeric password
-    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
+    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password);
 
     // Unable to send form unless fields are valid.
     if (dirty) {
-      setDisabled(!validate(email) || password.length < 7 || !validPassword)
+      setDisabled(!validate(email) || password.length < 7 || !validPassword);
     }
-  }, [email, password, dirty])
+  }, [email, password, dirty]);
 
   useEffect(() => {
-    handleValidation()
-  }, [handleValidation])
+    handleValidation();
+  }, [handleValidation]);
 
   return (
     <form
@@ -69,7 +69,7 @@ const LoginView: FC<Props> = () => {
             {message}. Did you {` `}
             <a
               className="text-accent-9 inline font-bold hover:underline cursor-pointer"
-              onClick={() => setModalView('FORGOT_VIEW')}
+              onClick={() => setModalView("FORGOT_VIEW")}
             >
               forgot your password?
             </a>
@@ -91,14 +91,14 @@ const LoginView: FC<Props> = () => {
           {` `}
           <a
             className="text-accent-9 font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView('SIGNUP_VIEW')}
+            onClick={() => setModalView("SIGNUP_VIEW")}
           >
             Sign Up
           </a>
         </div>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default LoginView
+export default LoginView;

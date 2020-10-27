@@ -1,16 +1,16 @@
-import '@assets/main.css'
-import 'keen-slider/keen-slider.min.css'
+import "@assets/main.css";
+import "keen-slider/keen-slider.min.css";
 
-import { FC } from 'react'
-import type { AppProps } from 'next/app'
+import { FC } from "react";
+import type { AppProps } from "next/app";
 
-import { ManagedUIContext } from '@components/ui/context'
-import { Head } from '@components/core'
+import { ManagedUIContext } from "@components/ui/context";
+import { Head } from "@components/core";
 
-const Noop: FC = ({ children }) => <>{children}</>
+const Noop: FC = ({ children }) => <>{children}</>;
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const Layout = (Component as any).Layout || Noop
+  const Layout = (Component as any).Layout || Noop;
 
   return (
     <>
@@ -21,5 +21,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         </Layout>
       </ManagedUIContext>
     </>
-  )
+  );
 }

@@ -1,16 +1,16 @@
-import cn from 'classnames'
-import { FC, useRef, useEffect, useCallback } from 'react'
-import s from './Toast.module.css'
-import { useDialog } from '@react-aria/dialog'
-import { FocusScope } from '@react-aria/focus'
-import { Transition } from '@headlessui/react'
-import { useOverlay, useModal, OverlayContainer } from '@react-aria/overlays'
+import cn from "classnames";
+import { FC, useRef, useEffect, useCallback } from "react";
+import s from "./Toast.module.css";
+import { useDialog } from "@react-aria/dialog";
+import { FocusScope } from "@react-aria/focus";
+import { Transition } from "@headlessui/react";
+import { useOverlay, useModal, OverlayContainer } from "@react-aria/overlays";
 
 interface Props {
-  className?: string
-  children?: any
-  open?: boolean
-  onClose: () => void
+  className?: string;
+  children?: any;
+  open?: boolean;
+  onClose: () => void;
 }
 
 const Toast: FC<Props> = ({
@@ -20,10 +20,10 @@ const Toast: FC<Props> = ({
   onClose,
   ...props
 }) => {
-  const rootClassName = cn(s.root, className)
-  let ref = useRef() as React.MutableRefObject<HTMLInputElement>
-  let { modalProps } = useModal()
-  let { dialogProps } = useDialog({}, ref)
+  const rootClassName = cn(s.root, className);
+  let ref = useRef() as React.MutableRefObject<HTMLInputElement>;
+  let { modalProps } = useModal();
+  let { dialogProps } = useDialog({}, ref);
   let { overlayProps } = useOverlay(
     {
       isOpen: open,
@@ -31,8 +31,8 @@ const Toast: FC<Props> = ({
       onClose: onClose,
       ...props,
     },
-    ref
-  )
+    ref,
+  );
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -67,7 +67,7 @@ const Toast: FC<Props> = ({
         </FocusScope>
       </OverlayContainer>
     </Transition>
-  )
-}
+  );
+};
 
-export default Toast
+export default Toast;

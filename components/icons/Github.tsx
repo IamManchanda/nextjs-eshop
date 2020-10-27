@@ -14,7 +14,7 @@ const Sun = ({ ...props }) => {
         fill="currentColor"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Sun
+export default Sun;

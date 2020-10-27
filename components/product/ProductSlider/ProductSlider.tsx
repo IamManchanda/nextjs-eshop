@@ -1,21 +1,21 @@
-import { useKeenSlider } from 'keen-slider/react'
-import React, { Children, FC, isValidElement, useState } from 'react'
-import cn from 'classnames'
+import { useKeenSlider } from "keen-slider/react";
+import React, { Children, FC, isValidElement, useState } from "react";
+import cn from "classnames";
 
-import s from './ProductSlider.module.css'
+import s from "./ProductSlider.module.css";
 
 const ProductSlider: FC = ({ children }) => {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isMounted, setIsMounted] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
 
   const [ref, slider] = useKeenSlider<HTMLDivElement>({
     loop: true,
     slidesPerView: 1,
     mounted: () => setIsMounted(true),
     slideChanged(s) {
-      setCurrentSlide(s.details().relativeSlide)
+      setCurrentSlide(s.details().relativeSlide);
     },
-  })
+  });
 
   return (
     <div className={s.root}>
@@ -42,12 +42,12 @@ const ProductSlider: FC = ({ children }) => {
               props: {
                 ...child.props,
                 className: `${
-                  child.props.className ? `${child.props.className} ` : ''
+                  child.props.className ? `${child.props.className} ` : ""
                 }keen-slider__slide`,
               },
-            }
+            };
           }
-          return child
+          return child;
         })}
       </div>
       {slider && (
@@ -61,17 +61,17 @@ const ProductSlider: FC = ({ children }) => {
                   [s.positionIndicatorActive]: currentSlide === idx,
                 })}
                 onClick={() => {
-                  slider.moveToSlideRelative(idx)
+                  slider.moveToSlideRelative(idx);
                 }}
               >
                 <div className={s.dot} />
               </button>
-            )
+            );
           })}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ProductSlider
+export default ProductSlider;

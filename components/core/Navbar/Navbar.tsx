@@ -1,14 +1,14 @@
-import { FC } from 'react'
-import Link from 'next/link'
-import s from './Navbar.module.css'
-import { Logo } from '@components/ui'
-import { Searchbar, UserNav } from '@components/core'
+import { FC } from "react";
+import Link from "next/link";
+import s from "./Navbar.module.css";
+import { Logo } from "@components/ui";
+import { Searchbar, UserNav } from "@components/core";
 interface Props {
-  className?: string
+  className?: string;
 }
 
 const Navbar: FC<Props> = ({ className }) => {
-  const rootClassName = className
+  const rootClassName = className;
 
   return (
     <div className={rootClassName}>
@@ -45,7 +45,7 @@ const Navbar: FC<Props> = ({ className }) => {
         <Searchbar id="mobileSearch" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

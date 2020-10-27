@@ -1,31 +1,31 @@
-import cn from 'classnames'
-import { FC, useRef } from 'react'
-import s from './Sidebar.module.css'
-import { Transition } from '@headlessui/react'
-import { useOverlay, useModal, OverlayContainer } from '@react-aria/overlays'
-import { useDialog } from '@react-aria/dialog'
-import { FocusScope } from '@react-aria/focus'
+import cn from "classnames";
+import { FC, useRef } from "react";
+import s from "./Sidebar.module.css";
+import { Transition } from "@headlessui/react";
+import { useOverlay, useModal, OverlayContainer } from "@react-aria/overlays";
+import { useDialog } from "@react-aria/dialog";
+import { FocusScope } from "@react-aria/focus";
 
 interface Props {
-  className?: string
-  children?: any
-  open?: boolean
-  onClose: () => void
+  className?: string;
+  children?: any;
+  open?: boolean;
+  onClose: () => void;
 }
 
 const Sidebar: FC<Props> = ({ className, children, open = false, onClose }) => {
-  const rootClassName = cn(s.root, className)
-  const ref = useRef<HTMLDivElement>(null)
-  const { modalProps } = useModal()
+  const rootClassName = cn(s.root, className);
+  const ref = useRef<HTMLDivElement>(null);
+  const { modalProps } = useModal();
   const { overlayProps } = useOverlay(
     {
       isOpen: open,
       isDismissable: true,
       onClose: onClose,
     },
-    ref
-  )
-  const { dialogProps } = useDialog({}, ref)
+    ref,
+  );
+  const { dialogProps } = useDialog({}, ref);
 
   return (
     <Transition show={open}>
@@ -74,7 +74,7 @@ const Sidebar: FC<Props> = ({ className, children, open = false, onClose }) => {
         </FocusScope>
       </OverlayContainer>
     </Transition>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

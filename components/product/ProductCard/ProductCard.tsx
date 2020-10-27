@@ -1,19 +1,19 @@
-import type { FC } from 'react'
-import cn from 'classnames'
-import Link from 'next/link'
-import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
-import usePrice from '@bigcommerce/storefront-data-hooks/use-price'
-import { EnhancedImage } from '@components/core'
-import s from './ProductCard.module.css'
-import WishlistButton from '@components/wishlist/WishlistButton'
+import type { FC } from "react";
+import cn from "classnames";
+import Link from "next/link";
+import type { ProductNode } from "@bigcommerce/storefront-data-hooks/api/operations/get-all-products";
+import usePrice from "@bigcommerce/storefront-data-hooks/use-price";
+import { EnhancedImage } from "@components/core";
+import s from "./ProductCard.module.css";
+import WishlistButton from "@components/wishlist/WishlistButton";
 
 interface Props {
-  className?: string
-  product: ProductNode
-  variant?: 'slim' | 'simple'
-  imgWidth: number | string
-  imgHeight: number | string
-  priority?: boolean
+  className?: string;
+  product: ProductNode;
+  variant?: "slim" | "simple";
+  imgWidth: number | string;
+  imgHeight: number | string;
+  priority?: boolean;
 }
 
 const ProductCard: FC<Props> = ({
@@ -24,19 +24,19 @@ const ProductCard: FC<Props> = ({
   imgHeight,
   priority,
 }) => {
-  const src = p.images.edges?.[0]?.node?.urlOriginal!
+  const src = p.images.edges?.[0]?.node?.urlOriginal!;
   const { price } = usePrice({
     amount: p.prices?.price?.value,
     baseAmount: p.prices?.retailPrice?.value,
     currencyCode: p.prices?.price?.currencyCode!,
-  })
+  });
 
   return (
     <Link href={`/product${p.path}`}>
       <a
-        className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}
+        className={cn(s.root, { [s.simple]: variant === "simple" }, className)}
       >
-        {variant === 'slim' ? (
+        {variant === "slim" ? (
           <div className="relative overflow-hidden box-border">
             <div className="absolute inset-0 flex items-center justify-end mr-8 z-20">
               <span className="bg-black text-white inline-block p-3 font-bold text-xl break-words">
@@ -45,7 +45,7 @@ const ProductCard: FC<Props> = ({
             </div>
             <EnhancedImage
               src={p.images.edges?.[0]?.node.urlOriginal!}
-              alt={p.images.edges?.[0]?.node.altText || 'Product Image'}
+              alt={p.images.edges?.[0]?.node.altText || "Product Image"}
               width={imgWidth}
               height={imgHeight}
               priority={priority}
@@ -71,7 +71,7 @@ const ProductCard: FC<Props> = ({
             <div className={s.imageContainer}>
               <EnhancedImage
                 alt={p.name}
-                className={cn('w-full object-cover', s['product-image'])}
+                className={cn("w-full object-cover", s["product-image"])}
                 src={src}
                 width={imgWidth}
                 height={imgHeight}
@@ -83,7 +83,7 @@ const ProductCard: FC<Props> = ({
         )}
       </a>
     </Link>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;

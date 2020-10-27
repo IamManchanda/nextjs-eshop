@@ -1,38 +1,38 @@
-import { useMemo } from 'react'
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllProducts from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
-import getSiteInfo from '@bigcommerce/storefront-data-hooks/api/operations/get-site-info'
-import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import rangeMap from '@lib/range-map'
-import { Layout } from '@components/core'
-import { Grid, Marquee, Hero } from '@components/ui'
-import { ProductCard } from '@components/product'
-import HomeAllProductsGrid from '@components/core/HomeAllProductsGrid'
+import { useMemo } from "react";
+import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { getConfig } from "@bigcommerce/storefront-data-hooks/api";
+import getAllProducts from "@bigcommerce/storefront-data-hooks/api/operations/get-all-products";
+import getSiteInfo from "@bigcommerce/storefront-data-hooks/api/operations/get-site-info";
+import getAllPages from "@bigcommerce/storefront-data-hooks/api/operations/get-all-pages";
+import rangeMap from "@lib/range-map";
+import { Layout } from "@components/core";
+import { Grid, Marquee, Hero } from "@components/ui";
+import { ProductCard } from "@components/product";
+import HomeAllProductsGrid from "@components/core/HomeAllProductsGrid";
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
+  const config = getConfig({ locale });
 
   const { products: featuredProducts } = await getAllProducts({
-    variables: { field: 'featuredProducts', first: 6 },
+    variables: { field: "featuredProducts", first: 6 },
     config,
     preview,
-  })
+  });
   const { products: bestSellingProducts } = await getAllProducts({
-    variables: { field: 'bestSellingProducts', first: 6 },
+    variables: { field: "bestSellingProducts", first: 6 },
     config,
     preview,
-  })
+  });
   const { products: newestProducts } = await getAllProducts({
-    variables: { field: 'newestProducts', first: 12 },
+    variables: { field: "newestProducts", first: 12 },
     config,
     preview,
-  })
-  const { categories, brands } = await getSiteInfo({ config, preview })
-  const { pages } = await getAllPages({ config, preview })
+  });
+  const { categories, brands } = await getSiteInfo({ config, preview });
+  const { pages } = await getAllPages({ config, preview });
 
   return {
     props: {
@@ -44,10 +44,10 @@ export async function getStaticProps({
       pages,
     },
     revalidate: 10,
-  }
+  };
 }
 
-const nonNullable = (v: any) => v
+const nonNullable = (v: any) => v;
 
 export default function Home({
   featuredProducts,
@@ -58,7 +58,7 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { featured, bestSelling } = useMemo(() => {
     // Create a copy of products that we can mutate
-    const products = [...newestProducts]
+    const products = [...newestProducts];
     // If the lists of featured and best selling products don't have enough
     // products, then fill them with products from the products list, this
     // is useful for new commerce sites that don't have a lot of products
@@ -69,10 +69,10 @@ export default function Home({
         .reverse(),
       bestSelling: rangeMap(
         6,
-        (i) => bestSellingProducts[i] ?? products.shift()
+        (i) => bestSellingProducts[i] ?? products.shift(),
       ).filter(nonNullable),
-    }
-  }, [newestProducts, featuredProducts, bestSellingProducts])
+    };
+  }, [newestProducts, featuredProducts, bestSellingProducts]);
 
   return (
     <div>
@@ -137,7 +137,7 @@ export default function Home({
         newestProducts={newestProducts}
       />
     </div>
-  )
+  );
 }
 
-Home.Layout = Layout
+Home.Layout = Layout;

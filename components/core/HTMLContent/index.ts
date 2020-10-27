@@ -1,1 +1,1 @@
-export { default } from './HTMLContent'
+export { default } from "./HTMLContent";

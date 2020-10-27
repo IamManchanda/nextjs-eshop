@@ -1,70 +1,70 @@
-import cn from 'classnames'
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import getSiteInfo from '@bigcommerce/storefront-data-hooks/api/operations/get-site-info'
-import useSearch from '@bigcommerce/storefront-data-hooks/products/use-search'
-import { Layout } from '@components/core'
-import { ProductCard } from '@components/product'
-import { Container, Grid, Skeleton } from '@components/ui'
+import cn from "classnames";
+import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { getConfig } from "@bigcommerce/storefront-data-hooks/api";
+import getAllPages from "@bigcommerce/storefront-data-hooks/api/operations/get-all-pages";
+import getSiteInfo from "@bigcommerce/storefront-data-hooks/api/operations/get-site-info";
+import useSearch from "@bigcommerce/storefront-data-hooks/products/use-search";
+import { Layout } from "@components/core";
+import { ProductCard } from "@components/product";
+import { Container, Grid, Skeleton } from "@components/ui";
 
-import rangeMap from '@lib/range-map'
-import getSlug from '@lib/get-slug'
+import rangeMap from "@lib/range-map";
+import getSlug from "@lib/get-slug";
 import {
   filterQuery,
   getCategoryPath,
   getDesignerPath,
   useSearchMeta,
-} from '@lib/search'
+} from "@lib/search";
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
-  const { categories, brands } = await getSiteInfo({ config, preview })
+  const config = getConfig({ locale });
+  const { pages } = await getAllPages({ config, preview });
+  const { categories, brands } = await getSiteInfo({ config, preview });
 
   return {
     props: { pages, categories, brands },
-  }
+  };
 }
 
 const SORT = Object.entries({
-  'latest-desc': 'Latest arrivals',
-  'trending-desc': 'Trending',
-  'price-asc': 'Price: Low to high',
-  'price-desc': 'Price: High to low',
-})
+  "latest-desc": "Latest arrivals",
+  "trending-desc": "Trending",
+  "price-asc": "Price: Low to high",
+  "price-desc": "Price: High to low",
+});
 
 export default function Search({
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter()
-  const { asPath } = router
-  const { q, sort } = router.query
+  const router = useRouter();
+  const { asPath } = router;
+  const { q, sort } = router.query;
   // `q` can be included but because categories and designers can't be searched
   // in the same way of products, it's better to ignore the search input if one
   // of those is selected
-  const query = filterQuery({ sort })
+  const query = filterQuery({ sort });
 
-  const { pathname, category, brand } = useSearchMeta(asPath)
+  const { pathname, category, brand } = useSearchMeta(asPath);
   const activeCategory = categories.find(
-    (cat) => getSlug(cat.path) === category
-  )
+    (cat) => getSlug(cat.path) === category,
+  );
   const activeBrand = brands.find(
-    (b) => getSlug(b.node.path) === `brands/${brand}`
-  )?.node
+    (b) => getSlug(b.node.path) === `brands/${brand}`,
+  )?.node;
 
   const { data } = useSearch({
-    search: typeof q === 'string' ? q : '',
+    search: typeof q === "string" ? q : "",
     categoryId: activeCategory?.entityId,
     brandId: activeBrand?.entityId,
-    sort: typeof sort === 'string' ? sort : '',
-  })
+    sort: typeof sort === "string" ? sort : "",
+  });
 
   return (
     <Container>
@@ -72,14 +72,14 @@ export default function Search({
         <div className="col-span-2">
           <ul className="mb-10">
             <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={{ pathname: getCategoryPath('', brand), query }}>
+              <Link href={{ pathname: getCategoryPath("", brand), query }}>
                 <a>All Categories</a>
               </Link>
             </li>
             {categories.map((cat) => (
               <li
                 key={cat.path}
-                className={cn('py-1 text-accents-8', {
+                className={cn("py-1 text-accents-8", {
                   underline: activeCategory?.entityId === cat.entityId,
                 })}
               >
@@ -96,14 +96,14 @@ export default function Search({
           </ul>
           <ul>
             <li className="py-1 text-base font-bold tracking-wide">
-              <Link href={{ pathname: getDesignerPath('', category), query }}>
+              <Link href={{ pathname: getDesignerPath("", category), query }}>
                 <a>All Designers</a>
               </Link>
             </li>
             {brands.flatMap(({ node }) => (
               <li
                 key={node.path}
-                className={cn('py-1 text-accents-8', {
+                className={cn("py-1 text-accents-8", {
                   underline: activeBrand?.entityId === node.entityId,
                 })}
               >
@@ -125,12 +125,12 @@ export default function Search({
               {data ? (
                 <>
                   <span
-                    className={cn('animated', {
+                    className={cn("animated", {
                       fadeIn: data.found,
                       hidden: !data.found,
                     })}
                   >
-                    Showing {data.products.length} results{' '}
+                    Showing {data.products.length} results{" "}
                     {q && (
                       <>
                         for "<strong>{q}</strong>"
@@ -138,7 +138,7 @@ export default function Search({
                     )}
                   </span>
                   <span
-                    className={cn('animated', {
+                    className={cn("animated", {
                       fadeIn: !data.found,
                       hidden: data.found,
                     })}
@@ -194,7 +194,7 @@ export default function Search({
           <ul>
             <li className="py-1 text-base font-bold tracking-wide">Sort</li>
             <li
-              className={cn('py-1 text-accents-8', {
+              className={cn("py-1 text-accents-8", {
                 underline: !sort,
               })}
             >
@@ -205,7 +205,7 @@ export default function Search({
             {SORT.map(([key, text]) => (
               <li
                 key={key}
-                className={cn('py-1 text-accents-8', {
+                className={cn("py-1 text-accents-8", {
                   underline: sort === key,
                 })}
               >
@@ -218,7 +218,7 @@ export default function Search({
         </div>
       </div>
     </Container>
-  )
+  );
 }
 
-Search.Layout = Layout
+Search.Layout = Layout;
