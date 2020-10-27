@@ -1,16 +1,16 @@
 {
-  "title": "ACME Storefront | Powered by Next.js Commerce",
-  "titleTemplate": "%s - ACME Storefront",
-  "description": "Next.js Commerce -> https://www.nextjs.org/commerce",
+  "title": "Next.js eShop",
+  "titleTemplate": "%s - Next.js eShop",
+  "description": "Next.js eShop",
   "openGraph": {
     "type": "website",
     "locale": "en_IE",
-    "url": "https://nextjs.org/commerce",
-    "site_name": "Next.js Commerce"
+    "url": "https://nextjs-eshop.vercel.app/",
+    "site_name": "Next.js eShop"
   },
   "twitter": {
-    "handle": "@nextjs",
-    "site": "@nextjs",
+    "handle": "@harmanmanchanda",
+    "site": "@harmanmanchanda",
     "cardType": "summary_large_image"
   }
 }
